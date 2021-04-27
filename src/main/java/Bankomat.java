@@ -15,10 +15,9 @@ public class Bankomat {
     }
 
     boolean enterPin(String pin) {
-        if(card.pin == pin) {
+        if (card.pin == pin) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -27,7 +26,20 @@ public class Bankomat {
         return account.balance;
     }
 
-    public boolean withdrawMoney(int amount) {
+    public int withdrawMoney(int amount) {
+            Account account = new Account();
+        if (account.balance >= amount && amount <= machineBalance) {
+            account.balance  -= amount;
+            machineBalance -= amount;
+            System.out.println("Account balance after withdraw: " + account.balance );
+            return amount;
+        } else {
+            System.out.println("Denied. Account balance: " + account.balance  + ", Machine balance: " + machineBalance);
+            System.out.println("Your attempt at withdrawal: " + amount);
+            return 0;
+        }
+
+/*    public boolean withdrawMoney(int amount) {
         Account account = new Account();
         if (account.balance >= amount && amount <= machineBalance) {
             account.balance  -= amount;
@@ -39,8 +51,8 @@ public class Bankomat {
             System.out.println("Your attempt at withdrawal: " + amount);
             return false;
         }
+    }*/
+
+
     }
-
-
-
 }
