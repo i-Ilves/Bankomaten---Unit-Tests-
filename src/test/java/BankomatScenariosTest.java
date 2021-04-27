@@ -7,15 +7,6 @@ public class BankomatScenariosTest {
     Bankomat bankomat;
     Card card;
 
-    /*
-     **Scenario 1**
-
-     *   Sätt in ett kort i bankomaten. (Bankomaten ska veta att ett kort är inne)
-     *   Mata in den felaktiga pinkoden 1234 i bankomaten. (Pinkoden ska vara sparad på kortet, men det är bankomaten som ska veta om rätt eller fel kod matats in)
-     *   Mata in den korrekta pinkoden 0123.
-     *  Ange 5000 kr att ta ut via bankomaten. Balansen ska tas från kontot som är kopplat till kortet.
-     *  Mata ut kortet ur bankomaten.
-     */
     @Test
     @DisplayName("Scenario 1")
     void scenario1(){
@@ -31,6 +22,28 @@ public class BankomatScenariosTest {
         int machineBalanceBeforeWithdrawal = bankomat.machineBalance;
         int money = bankomat.withdrawMoney(withdrawal);
         moneyWithdrawalSuccessful(withdrawal, money, machineBalanceBeforeWithdrawal);
+        bankomat.ejectCard();
+    }
+
+    @Test
+    @DisplayName("Scenario 2")
+    void scenario2() {
+        bankomat = new Bankomat();
+        card = new Card();
+        bankomat.insertCard(card);
+        cardIsInserted();
+        boolean pinResult = bankomat.enterPin("1234");
+        incorrectPinEntered(pinResult);
+        pinResult = bankomat.enterPin("0123");
+        correctPinEntered(pinResult);
+        int withdrawal = 200000;
+        int money = bankomat.withdrawMoney(withdrawal);
+        int machineBalanceBeforeWithdrawal = bankomat.machineBalance;
+        moneyWithdrawalRejected(0, money);
+        int newWithdrawal = 6000;
+        int money1 = bankomat.withdrawMoney(newWithdrawal);
+        moneyWithdrawalSuccessful(newWithdrawal, money1, machineBalanceBeforeWithdrawal);
+        bankomat.ejectCard();
     }
 
     void cardIsInserted(){
@@ -39,7 +52,6 @@ public class BankomatScenariosTest {
 
 
     void cardIsNotInserted(){
-
         bankomat.insertCard(card);
         bankomat.ejectCard();
         Assertions.assertEquals(false, bankomat.cardInserted);
@@ -62,10 +74,7 @@ public class BankomatScenariosTest {
     }
 
 
-    void moneyWithdrawalRejected(){
-
-        int withdrawal = 9999999;
-        int money = bankomat.withdrawMoney(withdrawal);
+    void moneyWithdrawalRejected(int withdrawal, int money){
         Assertions.assertEquals(0, money);
     }
 
