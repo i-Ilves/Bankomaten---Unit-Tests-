@@ -55,9 +55,12 @@ public class BankomatTest {
         boolean result = bankomat.enterPin("0123");
         int withdrawal = 5000;
         int machineBalanceBeforeWithdrawal = bankomat.machineBalance;
+        int cardBalanceBeforeWithdrawal = card.balance;
         int money = bankomat.withdrawMoney(withdrawal);
         Assertions.assertEquals(withdrawal, money);
         Assertions.assertEquals(machineBalanceBeforeWithdrawal - withdrawal, bankomat.machineBalance);
+        Assertions.assertEquals(cardBalanceBeforeWithdrawal - withdrawal, card.balance);
+
     }
 
     @Test

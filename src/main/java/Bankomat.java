@@ -27,14 +27,14 @@ public class Bankomat {
     }
 
     public int withdrawMoney(int amount) {
-            Account account = new Account();
-        if (account.balance >= amount && amount <= machineBalance) {
-            account.balance  -= amount;
+            //Account account = new Account();
+        if (card.balance >= amount && amount <= machineBalance) {
+            card.balance  -= amount;
             machineBalance -= amount;
-            System.out.println("Account balance after withdraw: " + account.balance );
+            System.out.println("Success! Account balance after withdraw: " + card.balance );
             return amount;
         } else {
-            System.out.println("Denied. Account balance: " + account.balance  + ", Machine balance: " + machineBalance);
+            System.out.println("Denied. Account balance: " + card.balance  + ", Machine balance: " + machineBalance);
             System.out.println("Your attempt at withdrawal: " + amount);
             return 0;
         }

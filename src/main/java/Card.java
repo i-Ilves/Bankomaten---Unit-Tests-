@@ -1,8 +1,6 @@
 public class Card extends Account {
-        Account account;
+        public Account account = new Account();
         String pin = "0123";
-
-
     }
 
 
