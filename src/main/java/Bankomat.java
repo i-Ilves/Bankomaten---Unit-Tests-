@@ -27,7 +27,6 @@ public class Bankomat {
     }
 
     public int withdrawMoney(int amount) {
-            //Account account = new Account();
         if (card.balance >= amount && amount <= machineBalance) {
             card.balance  -= amount;
             machineBalance -= amount;
@@ -39,20 +38,15 @@ public class Bankomat {
             return 0;
         }
 
-/*    public boolean withdrawMoney(int amount) {
-        Account account = new Account();
-        if (account.balance >= amount && amount <= machineBalance) {
-            account.balance  -= amount;
-            machineBalance -= amount;
-            System.out.println("Account balance after withdraw: " + account.balance );
-            return true;
-        } else {
-            System.out.println("Denied. Account balance: " + account.balance  + ", Machine balance: " + machineBalance);
-            System.out.println("Your attempt at withdrawal: " + amount);
-            return false;
-        }
-    }*/
 
+    }
 
+    public int transferMoneyToAccount(int money, Card card) {
+        int cardBalanceBeforeTransfer = card.balance;
+        int cardBalanceAfterTransfer = (card.balance += money);
+        System.out.println("Card balance before transfer: " + cardBalanceBeforeTransfer);
+        System.out.println("Card balance after transfer: " + cardBalanceAfterTransfer);
+        card.balance = cardBalanceAfterTransfer;
+        return card.balance;
     }
 }

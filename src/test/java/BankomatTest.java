@@ -74,5 +74,14 @@ public class BankomatTest {
         Assertions.assertEquals(0, money);
     }
 
+    @Test
+    void transferMoneyToAccount() {
+        Bankomat bankomat = new Bankomat();
+        Card card = new Card();
+        int money = 5000;
+        int moneyToTransfer = bankomat.transferMoneyToAccount(money, card);
+        int moneyInAccount = card.balance;
+        Assertions.assertEquals(20000, moneyInAccount);
+    }
 
 }
